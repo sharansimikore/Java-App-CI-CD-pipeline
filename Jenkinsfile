@@ -4,15 +4,17 @@ pipeline {
         stage('Cloning') {
             steps {
                 echo "Cloning the code fron Github"
-                git branch: 'master', url: 'https://github.com/devops4solutions/CI-CD-using-Docker.git'
+                git branch: 'master', url: 'https://github.com/sharansimikore/Java-App-CI-CD-pipeline.git'
+                echo "Cloning successful"
             }
         }
 
       
-       stage('Test') {
+       stage('Build') {
             steps {
-                sh 'node --version'
-                sh 'svn --version'
+                 echo 'Build the code'
+                sh './mvnw package'
+                echo "Build successful"
             }
         }
 
