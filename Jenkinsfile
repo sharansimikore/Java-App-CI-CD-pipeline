@@ -21,9 +21,9 @@ pipeline {
   stage('Docker Build and Tag') {
            steps {
               
-                sh 'docker build -t samplewebapp:latest .' 
-                sh 'docker tag samplewebapp ssimikore/samplewebapp:latest'
-                //sh 'docker tag samplewebapp ssimikore/samplewebapp:$BUILD_NUMBER'
+                sh 'docker build -t javawebapp:latest .' 
+                sh 'docker tag samplewebapp ssimikore/javawebapp:latest'
+                //sh 'docker tag javawebapp ssimikore/javawebapp:$BUILD_NUMBER'
                
           }
         }
@@ -32,7 +32,7 @@ pipeline {
           
             steps {
         withDockerRegistry([ credentialsId: "dockerhubid", url: "" ]) {
-          sh  'docker push ssimikore/samplewebapp:latest'
+          sh  'docker push ssimikore/javawebapp:latest'
         //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER' 
         }
                   
@@ -43,7 +43,7 @@ pipeline {
              
             steps 
 			{
-                sh "docker run -idt -p 8090:8080 ssimikore/samplewebapp"
+                sh "docker run -idt -p 8090:8080 ssimikore/javawebapp"
  
             }
         }
