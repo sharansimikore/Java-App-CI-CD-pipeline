@@ -16,9 +16,9 @@ pipeline {
         }
 	 stage('Execute Maven') {
            steps {
-             	  echo "Buildning maven package"
-                //sh 'mvnw package' 
-		   sh './mvnw package'
+             	  echo "Building maven package"
+                  sh 'mvn package' 
+		   //sh './mvnw package'
 		   echo "Building successful"
           }
         }
