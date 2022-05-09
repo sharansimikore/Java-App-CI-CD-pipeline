@@ -43,7 +43,7 @@ pipeline {
              
             steps 
 			{
-                sh "docker run -d -p 8090:8080 ssimikore/samplewebapp"
+                sh "docker run -idt -p 8090:8080 ssimikore/samplewebapp"
  
             }
         }
