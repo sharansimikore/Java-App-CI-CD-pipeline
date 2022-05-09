@@ -1,10 +1,10 @@
 pipeline {
     agent any
 	
-//	  tools
-  //  {
-    //   maven "Maven"
-    //}
+	  tools
+    {
+       maven "Maven"
+    }
  stages {
       stage('checkout') {
            steps {
@@ -46,7 +46,7 @@ pipeline {
              
             steps 
 			{
-                sh "docker run -d -p 8003:8080 ssimikore/samplewebapp"
+                sh "docker run -d -p 8090:8080 ssimikore/samplewebapp"
  
             }
         }
