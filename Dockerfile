@@ -1,9 +1,14 @@
-FROM tomcat:latest
+FROM openjdk:8-jdk-alpine
+MAINTAINER MNAGEN
+COPY target/*.jar spring-petclinic-2.4.5.jar
+ENTRYPOINT ["java","-jar","/spring-petclinic-2.4.5.jar"]
 
-LABEL maintainer="Nidhi Gupta"
+//FROM tomcat:latest
 
-ADD ./target/LoginWebApp-1.war /usr/local/tomcat/webapps/
+//LABEL maintainer="Nidhi Gupta"
 
-EXPOSE 8080
+//ADD ./target/LoginWebApp-1.war /usr/local/tomcat/webapps/
 
-CMD ["catalina.sh", "run"]
+//EXPOSE 8080
+
+//CMD ["catalina.sh", "run"]
