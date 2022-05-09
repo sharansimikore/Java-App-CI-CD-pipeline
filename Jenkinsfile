@@ -50,11 +50,20 @@ pipeline {
                     
                  docker.withRegistry( '', registryCredential ) {
                   dockerImage.push("$BUILD_NUMBER")
-                  dockerImage.push('latest')
+                  // dockerImage.push('latest')
+                  //sh  'docker push ssimikore/JavaApp'
+                    sh  'docker push ssimikore/JavaApp:$BUILD_NUMBER' 
                  }}
       
       
-      
+      stage('Run Docker container on Jenkins Agent') {
+             
+            steps 
+			{
+                sh "docker run -d -p 8003:8080 ssimikore/JavaApp"
+ 
+            }
+        }
       
       
       
