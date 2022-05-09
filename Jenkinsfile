@@ -1,22 +1,24 @@
 pipeline {
     agent any
 	
-	  tools
-    {
-       maven "Maven"
-    }
+	//  tools
+    //{
+      // maven "Maven"
+   // }
  stages {
-      stage('checkout') {
+      stage('Git_Cloning') {
            steps {
-             
+             	echo "Cloning the code from Github"
                 git branch: 'master', url: 'https://github.com/sharansimikore/Java-App-CI-CD-pipeline.git'
+		   echo "Cloning is successful"
              
           }
         }
 	 stage('Execute Maven') {
            steps {
-             
-                sh 'mvn package'             
+             	  echo "Buildning maven package"
+                sh 'mvn package' 
+		   echo "Building successful"
           }
         }
         
