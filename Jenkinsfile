@@ -1,25 +1,22 @@
 pipeline {
     agent any
 	
-	//  tools
-    //{
-      // maven "Maven"
-   // }
+	  tools
+    {
+       maven "Maven"
+    }
  stages {
-      stage('Git_Cloning') {
+      stage('checkout') {
            steps {
-             	echo "Cloning the code from Github"
-                git branch: 'master', url: 'https://github.com/sharansimikore/Java-App-CI-CD-pipeline.git'
-		   echo "Cloning is successful"
+             
+                git branch: 'master', url: 'https://github.com/devops4solutions/CI-CD-using-Docker.git'
              
           }
         }
 	 stage('Execute Maven') {
            steps {
-             	  echo "Building maven package"
-                  //sh 'mvnw package' 
-		   sh './mvnw package'
-		   echo "Building successful"
+             
+                sh 'mvn package'             
           }
         }
         
@@ -28,8 +25,8 @@ pipeline {
            steps {
               
                 sh 'docker build -t samplewebapp:latest .' 
-                sh 'docker tag JavaApp ssimikore/JavaApp:latest'
-                //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
+                sh 'docker tag samplewebapp ssimikore/samplewebapp:latest'
+                //sh 'docker tag samplewebapp ssimikore/samplewebapp:$BUILD_NUMBER'
                
           }
         }
@@ -37,8 +34,8 @@ pipeline {
   stage('Publish image to Docker Hub') {
           
             steps {
-        withDockerRegistry([ credentialsId: "Dockerhubid", url: "" ]) {
-          sh  'docker push ssimikore/JavaApp:latest'
+        withDockerRegistry([ credentialsId: "dockerhubid", url: "" ]) {
+          sh  'docker push ssimikore/samplewebapp:latest'
         //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER' 
         }
                   
@@ -49,18 +46,18 @@ pipeline {
              
             steps 
 			{
-                sh "docker run -d -p 8003:8080 ssimikore/JavaApp"
+                sh "docker run -d -p 8003:8080 ssimikore/samplewebapp"
  
             }
         }
- //stage('Run Docker container on remote hosts') {
+// stage('Run Docker container on remote hosts') {
              
- //           steps {
-   //             sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
+  //          steps {
+    //            sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 ssimikore/samplewebapp"
  
-     //       }
-       // }
-       
-    }
+ //           }
+   //     }
+    
+ }
 	}
     
