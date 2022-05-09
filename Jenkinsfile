@@ -1,5 +1,13 @@
 pipeline {
-    agent { dockerfile true }
+    
+    environment {
+    imagename = "ssimikore/JavaApp"
+    registryCredential = 'Dockerhubid'
+    dockerImage = ''
+  }
+    
+    agent any
+    
     stages {
         stage('Cloning') {
             steps {
@@ -19,21 +27,31 @@ pipeline {
         }
 
       
-       stage('Test') {
+       stage('DOCKERIZE') {
             steps {
-                sh 'node --version'
-                sh 'svn --version'
-            }
-        }
-
-      
-       stage('Test') {
+                echo 'Deploy the code'
+                
+                script {
+                    
+                     dockerImage = docker.build imagename 
+                    
+                }
+                  
+                
+            } 
+                
+            }  
+            
+            
+            stage('push') {
             steps {
-                sh 'node --version'
-                sh 'svn --version'
-            }
-        }
-
+                echo 'push image'
+                script{
+                    
+                 docker.withRegistry( '', registryCredential ) {
+                  dockerImage.push("$BUILD_NUMBER")
+                  dockerImage.push('latest')
+                 }}
       
       
       
